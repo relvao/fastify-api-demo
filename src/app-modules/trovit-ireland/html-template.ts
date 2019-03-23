@@ -11,7 +11,29 @@ const buildLayout = (content: string) => {
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
       </head>    
-      <body>${content}</body>
+      <body>
+        <button id="download">Download Data</button>
+        ${content}
+        <script src="http://danml.com/js/download.js"></script>
+        <script>  
+          const butt = document.getElementById("download");
+          butt.addEventListener("click", function() {
+            let url = document.location.href;
+            return fetch(url, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+              .then(function(resp) {
+                return resp.blob();
+              })
+              .then(function(blob) {
+                download(blob);
+              });
+          });
+        </script>
+      </body>
     </html>
   `
 };
