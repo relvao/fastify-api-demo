@@ -3,7 +3,7 @@ import test from 'tape';
 import TrovitProperties from '../trovit-properties';
 import fixt from './trovit-ireland-fixture';
 
-test.only('Entities - Trovit Properties', async function (t) {
+test('Entities - Trovit Properties', async function (t) {
   t.test('Validate JSON data', async (st) => {
     const result = TrovitProperties.decode(fixt);
 

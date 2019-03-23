@@ -29,3 +29,5 @@ export const getProperties = async (): Promise<Property[]> => {
 
   return selectedData;
 };
+
+export default getProperties;

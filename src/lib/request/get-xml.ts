@@ -7,10 +7,6 @@ import Logger from 'pino';
 const logger = Logger(); // TODO global config for log level. Disable for tests
 const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120, deleteOnExpire: true });
 
-interface GetXmlArgs {
-  url: string;
-}
-
 const fetchFromRemote = (url: string) => {
   const config = {
     headers: {
@@ -33,13 +29,18 @@ const fetchFromRemote = (url: string) => {
     });
 }
 
+interface GetXmlArgs {
+  url: string;
+  cache?: boolean;
+}
+
 /**
  * Fetches xml from url and decodes the data into an object 
  */
-const getXml = async ({ url }: GetXmlArgs) => {
+const getXml = async ({ url, cache = true }: GetXmlArgs) => {
   const cachedData = myCache.get(url);
 
-  if (cachedData) {
+  if (cache && cachedData) {
     // update in the bg
     fetchFromRemote(url);
     return Promise.resolve(cachedData);

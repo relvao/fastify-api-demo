@@ -52,7 +52,14 @@ const buildTableRows = (data: Property[]) => {
 export const template = (data: Property[]) => {
   const minify = htmlMin.minify;
 
-  return minify(buildLayout(buildTable(buildTableRows(data))));
+  return minify(
+    buildLayout(buildTable(buildTableRows(data))),
+    {
+      collapseWhitespace: true,
+      conservativeCollapse: true,
+      preserveLineBreaks: false
+    }
+  );
 }
 
 export default template;
