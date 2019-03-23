@@ -22,12 +22,36 @@ const selectData = (data: TrovitProperties): Property[] => {
   });
 };
 
-export const getProperties = async (): Promise<Property[]> => {
+const sortData = (data: Property[], sortBy: string, sortOrder: string) => {
+  const newData = [...data]; // prevent sort from mutating the original array
+  const isAscending = sortOrder === 'asc';
+
+  newData.sort((itemA, itemB) => {
+    const propA = itemA[sortBy];
+    const propB = itemB[sortBy];
+
+    return (isAscending ? 1 : -1) * propA.localeCompare(propB);
+  });
+
+  return newData;
+}
+
+interface GetPropertiesArgs {
+  sortBy: string;
+  sortOrder: string;
+}
+
+export const getProperties = async ({ sortBy, sortOrder }: GetPropertiesArgs): Promise<Property[]> => {
+  sortBy = ['id', 'title', 'url', 'city'].includes(sortBy) ? sortBy : 'id';
+  sortOrder = ['asc', 'desc'].includes(sortOrder) ? sortOrder : 'asc';
+
   const data = await getXml({ url: config.get<string>('trovitIrelandUrl') });
   const validatedData = validate<TrovitProperties>(TrovitProperties, data);
   const selectedData = selectData(validatedData);
+  // FIXME detect data type and sort accordingly. Numbers are being sorted alphabeticaly
+  const sortedData = sortData(selectedData, sortBy, sortOrder);
 
-  return selectedData;
+  return sortedData;
 };
 
 export default getProperties;

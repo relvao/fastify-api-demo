@@ -7,21 +7,36 @@ import * as trovitIreland from './trovit-ireland';
 type httpServer = fastify.FastifyInstance<http.Server, http.IncomingMessage, http.ServerResponse>;
 
 export const httpInterface = (server: httpServer) => {
-  server.get('/', async (request, reply) => {
-    // TODO fix types for the accepts plugin
-    const accept = (request as any).accepts() // Accepts object
-    const data = await trovitIreland.getProperties();
+  server.route({
+    method: 'GET',
+    url: '/',
+    schema: {
+      querystring: {
+        sortBy: { type: 'string' },
+        sortOrder: { type: 'string' }
+      }
+    },
+    handler: async (request, reply) => {
+      // TODO fix types for the accepts plugin
+      const accept = (request as any).accepts() // Accepts object
+      const sortBy = request.query.sortBy || 'id';
+      const sortOrder = request.query.sortOrder || 'asc'
+      const data = await trovitIreland.getProperties({
+        sortBy,
+        sortOrder
+      });
 
-    switch (accept.type(['json', 'html'])) {
-      case 'json':
-        reply.type('application/json').send(data);
-        break
-      case 'html':
-        reply.type('text/html').send(template(data));
-        break
-      default:
-        reply.send(Boom.notAcceptable('unacceptable'));
-        break
+      switch (accept.type(['json', 'html'])) {
+        case 'json':
+          reply.type('application/json').send(data);
+          break
+        case 'html':
+          reply.type('text/html').send(template({ data, sortBy, sortOrder }));
+          break
+        default:
+          reply.send(Boom.notAcceptable('unacceptable'));
+          break
+      }
     }
   });
 };
