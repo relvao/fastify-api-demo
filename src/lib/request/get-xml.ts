@@ -1,5 +1,10 @@
 import axios from 'axios';
+import Boom from 'boom';
 import xmlParser from 'fast-xml-parser';
+import Logger from 'pino';
+
+// TODO global config for log level. Disable for tests
+const logger = Logger();
 
 interface GetXmlArgs {
   url: string;
@@ -14,10 +19,17 @@ const getXml = async ({ url }: GetXmlArgs) => {
       Accept: 'application/xml'
     }
   };
-  const res = await axios.get(url, config);
-  // TODO error handling
 
-  return xmlParser.parse(res.data);
+  return axios.get(url, config)
+    .then((res) => {
+      return xmlParser.parse(res.data);
+    })
+    .catch((err) => {
+      const errDetails = err.response ? `HTTP ${err.response.status} - ${err.response.data}` : 'Bad Data';
+      logger.error(`Unable to fetch XML data from ${url}. ${errDetails}`);
+
+      return Promise.reject(Boom.serverUnavailable('Unable to retrieve data from backend'));
+    });
 }
 
 export default getXml;

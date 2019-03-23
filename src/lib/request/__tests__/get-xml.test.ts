@@ -22,4 +22,20 @@ test('lib/request', async function (t) {
     st.end();
   });
 
+  t.test('getXml - HTTP 404', async (st) => {
+    const url = 'http://feeds.spotahome.com/trovit-ireland.xml';
+    const fixtureBasePath = path.resolve(__dirname);
+
+    var couchdb = nock('http://feeds.spotahome.com')
+      .matchHeader('accept', 'application/xml')
+      .get('/trovit-ireland.xml')
+      .reply(404, 'Not Found');
+
+    getXml({ url })
+      .then(() => st.fail('Should have thrown an error'))
+      .catch((e) => st.pass('Thrown on bad request'))
+
+    st.end();
+  });
+
 });
