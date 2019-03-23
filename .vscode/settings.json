@@ -1,0 +1,63 @@
+{
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.trimAutoWhitespace": true,
+  "html.format.wrapAttributes": "force-aligned",
+  "html.format.contentUnformatted": "pre",
+  "html.autoClosingTags": true,
+  "[typescript]": {
+    "editor.tabSize": 2,
+  },
+  "[javascript]": {
+    "editor.tabSize": 2,
+  },
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+  },
+  "typescript.extension.sortImports.sortOnSave": true,
+  "typescript.extension.sortImports.sortMethod": "path",
+  "typescript.extension.sortImports.pathSortOrder": [
+    "package",
+    "relativeUpLevel",
+    "relativeDownLevel"
+  ],
+  "todo-tree.excludeGlobs": [
+    "/node_modules"
+  ],
+  "todo-tree.tags": [
+    "TODO",
+    "FIXME",
+    "HACK",
+    "POOP"
+  ],
+  "todo-tree.defaultHighlight": {
+    "foreground": "white",
+    "background": "grey",
+    "type": "text",
+  },
+  "todo-tree.customHighlight": {
+    "TODO": {
+      "icon": "clippy",
+      "iconColour": "grey"
+    },
+    "FIXME": {
+      "icon": "bug",
+      "iconColour": "yellow"
+    },
+    "HACK": {
+      "icon": "flame",
+      "iconColour": "red"
+    },
+    "SMELL": {
+      "icon": "trashcan",
+      "iconColour": "orange"
+    }
+  },
+  "tslint.autoFixOnSave": true,
+  "tslint.configFile": "./app/tslint.json",
+  "git.ignoreLimitWarning": true,
+  "editor.rulers": [
+    120
+  ]
+}

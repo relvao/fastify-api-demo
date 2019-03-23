@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "eg2.tslint",
+    "eamodio.gitlens",
+    "Gruntfuggly.todo-tree",
+    "bierner.markdown-mermaid",
+    "hnw.vscode-auto-open-markdown-preview",
+    "koppt.vscode-view-in-browser",
+    "miclo.sort-typescript-imports",
+    "donjayamanne.githistory",
+    "glen-84.sass-lint"
+  ]
+}
