@@ -5,7 +5,7 @@ import NodeCache from 'node-cache';
 import Logger from 'pino';
 
 const logger = Logger(); // TODO global config for log level. Disable for tests
-const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120, deleteOnExpire: true });
+const myCache = new NodeCache({ stdTTL: 360, checkperiod: 120, deleteOnExpire: true });
 
 const fetchFromRemote = (url: string) => {
   const config = {

@@ -42,7 +42,7 @@ interface GetPropertiesArgs {
 }
 
 export const getProperties = async ({ sortBy, sortOrder }: GetPropertiesArgs): Promise<Property[]> => {
-  sortBy = ['id', 'title', 'url', 'city'].includes(sortBy) ? sortBy : 'id';
+  sortBy = ['id', 'title', 'city'].includes(sortBy) ? sortBy : 'id';
   sortOrder = ['asc', 'desc'].includes(sortOrder) ? sortOrder : 'asc';
 
   const data = await getXml({ url: config.get<string>('trovitIrelandUrl') });

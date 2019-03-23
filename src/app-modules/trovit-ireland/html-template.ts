@@ -10,9 +10,18 @@ const buildLayout = (content: string) => {
         <title>Just a Table</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-      </head>    
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <style>
+          img {
+            width: 20vw;
+          }
+        </style>
+      </head>
       <body>
-        <button id="download">Download Data</button>
+        <button id="download" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Download Data</button>
         ${content}
         <script src="http://danml.com/js/download.js"></script>
         <script>  
@@ -45,23 +54,34 @@ const getHeaderTitle = (field: string, label: string, sortBy: string, sortOrder:
     return `<a href="/?sortBy=${field}&sortOrder=asc">${label}</a<`;
   }
 
-  return `<a href="/?sortBy=${field}&sortOrder=${newSortOrder}" class="sort-${sortOrder}">${label}</a>`;
+  return `<a href="/?sortBy=${field}&sortOrder=${newSortOrder}">${label}</a>`;
+}
+
+const getClassSorting = (field: string, sortBy: string, sortOrder: string) => {
+  if (field !== sortBy) {
+    return '';
+  }
+
+  return sortOrder === 'asc' ? 'mdl-data-table__header--sorted-ascending' : 'mdl-data-table__header--sorted-descending';
 }
 
 const buildTable = (content: string, sortBy: string, sortOrder: string) => {
   return `
-    <table>
-      <thead>
-        <th>${getHeaderTitle('id', 'Id', sortBy, sortOrder)}</th>
-        <th>${getHeaderTitle('title', 'Title', sortBy, sortOrder)}</th>
-        <th>${getHeaderTitle('url', 'url', sortBy, sortOrder)}</th>
-        <th>${getHeaderTitle('city', 'city', sortBy, sortOrder)}</th>
-        <th>Image</th>
-      <thead>
-      <tbody>
-        ${content}
-      </tbody>
-    </table>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <th class="${getClassSorting('id', sortBy, sortOrder)}">${getHeaderTitle('id', 'Id', sortBy, sortOrder)}</th>
+          <th class="mdl-data-table__cell--non-numeric ${getClassSorting('title', sortBy, sortOrder)}">${getHeaderTitle('title', 'Title', sortBy, sortOrder)}</th>
+          <th class="mdl-data-table__cell--non-numeric ${getClassSorting('city', sortBy, sortOrder)}">${getHeaderTitle('city', 'city', sortBy, sortOrder)}</th>
+          <th class="mdl-data-table__cell--non-numeric">Image</th>
+        <thead>
+        <tbody>
+          ${content}
+        </tbody>
+      </table>
+      </div
+    </div>
   `;
 }
 
@@ -72,9 +92,10 @@ const buildTableRows = (data: Property[]) => {
         <tr>
           <td>${item.id}</td>
           <td>${item.title}</td>
-          <td>${item.url}</td>
           <td>${item.city}</td>
-          <td><img src="${item.picture.url}" alt="${item.picture.title}" /></td>
+          <td>
+            <a href="${item.url}" target="_blank"><img src="${item.picture.url}" alt="${item.picture.title}" /></a>
+          </td>
         </tr>
       `;
     })
