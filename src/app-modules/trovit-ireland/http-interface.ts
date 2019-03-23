@@ -33,6 +33,11 @@ export const httpInterface = (server: httpServer) => {
         case 'html':
           reply.type('text/html').send(template({ data, sortBy, sortOrder }));
           break
+        //
+        // We could have other response types like binary data, for example. 
+        // Or a template to convert the data to xslx.
+        // It's just a matter of adding the right encoder.
+        // 
         default:
           reply.send(Boom.notAcceptable('unacceptable'));
           break
