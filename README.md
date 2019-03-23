@@ -7,18 +7,13 @@
 The frontend code is designed to work on modern browsers. I'm assuming support for really old browsers isn't relevant for a server-side project.
 
 # Usage
-Ensure you have Node.js v10.x.x installed. 
+Ensure you have Node.js v10.x.x installed. If you don't have Node.js yet, `brew install nodenv` followed by `nodenv install 10.15.3` should sort it out.
 
 Pull the repo, run `npm i` and then `npm start`.
 
 Tests are run with `npm run build && npm test`.
 
 This project was built with vscode and you should get better code inspection by using it. There is already a project settings folder that should ask you to install the relevant plugins in case they aren't already available.
-
-No build tools like grunt or gulp. I really don't need the added complexity here.
-
-# Structure 
-The same endpoint `/` is returning both the HTML document and the JSON data. We use the accept header to decide the correct format. This is totally uncalled for in this case but I think it is nice if HTTP APIs actually respect the protocol and use it's features to their advantage.
 
 # Dependencies
 These dependencies should be fit for purpose and if I'm developing a small demonstration project I may as well have some fun while I'm doing it.

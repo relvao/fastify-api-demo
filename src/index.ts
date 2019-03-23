@@ -1,6 +1,6 @@
 import config from 'config';
 import fastifyAccepts from 'fastify-accepts';
-import helloWorld from './app-modules/hello-world/http-interface';
+import trovitIreland from './app-modules/trovit-ireland/http-interface';
 import httpServer from './http-server';
 
 httpServer({
@@ -9,6 +9,6 @@ httpServer({
     { fn: fastifyAccepts }
   ],
   appModules: [
-    helloWorld
+    trovitIreland
   ]
 });
