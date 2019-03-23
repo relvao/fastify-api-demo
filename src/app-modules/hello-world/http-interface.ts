@@ -1,4 +1,4 @@
-import * as Boom from 'boom';
+import Boom from 'boom';
 import fastify from 'fastify';
 import * as http from 'http';
 import * as helloWorld from './hello-world';
