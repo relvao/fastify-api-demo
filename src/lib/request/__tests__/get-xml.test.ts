@@ -31,8 +31,8 @@ test('lib/request', async function (t) {
       .get('/trovit-ireland.xml')
       .reply(404, 'Not Found');
 
-    getXml({ url })
-      .then(() => st.fail('Should have thrown an error'))
+    getXml({ url, cache: false })
+      .then((data) => st.fail('Should have thrown an error'))
       .catch((e) => st.pass('Thrown on bad request'))
 
     st.end();

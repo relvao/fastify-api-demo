@@ -1,0 +1,4 @@
+{
+    "httpPort": 8080,
+    "trovitIrelandUrl": "http://feeds.spotahome.com/trovit-Ireland.xml"
+}
