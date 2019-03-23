@@ -16,14 +16,24 @@ const buildLayout = (content: string) => {
   `
 };
 
-const buildTable = (content: string) => {
+const getHeaderTitle = (field: string, label: string, sortBy: string, sortOrder: string) => {
+  const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+  if (field !== sortBy) {
+    return `<a href="/?sortBy=${field}&sortOrder=asc">${label}</a<`;
+  }
+
+  return `<a href="/?sortBy=${field}&sortOrder=${newSortOrder}" class="sort-${sortOrder}">${label}</a>`;
+}
+
+const buildTable = (content: string, sortBy: string, sortOrder: string) => {
   return `
     <table>
       <thead>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Link</th>
-        <th>City</th>
+        <th>${getHeaderTitle('id', 'Id', sortBy, sortOrder)}</th>
+        <th>${getHeaderTitle('title', 'Title', sortBy, sortOrder)}</th>
+        <th>${getHeaderTitle('url', 'url', sortBy, sortOrder)}</th>
+        <th>${getHeaderTitle('city', 'city', sortBy, sortOrder)}</th>
         <th>Image</th>
       <thead>
       <tbody>
@@ -49,11 +59,17 @@ const buildTableRows = (data: Property[]) => {
     .join('');
 }
 
-export const template = (data: Property[]) => {
+interface TemplaArgs {
+  data: Property[],
+  sortBy: string,
+  sortOrder: string
+}
+
+export const template = ({ data, sortBy, sortOrder }: TemplaArgs) => {
   const minify = htmlMin.minify;
 
   return minify(
-    buildLayout(buildTable(buildTableRows(data))),
+    buildLayout(buildTable(buildTableRows(data), sortBy, sortOrder)),
     {
       collapseWhitespace: true,
       conservativeCollapse: true,

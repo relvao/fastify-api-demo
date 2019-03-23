@@ -7,4 +7,6 @@ export interface Property {
     url: string;
     title: string;
   }
+
+  [key: string]: any;
 }
