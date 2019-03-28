@@ -1,5 +1,4 @@
 import * as t from 'io-ts';
-import { totalmem } from 'os';
 
 // we require id, title, link, city and main image
 export const TrovitProperties = t.interface({

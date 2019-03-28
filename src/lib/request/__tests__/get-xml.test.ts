@@ -11,7 +11,7 @@ test('lib/request', async function (t) {
     const url = 'http://feeds.spotahome.com/trovit-ireland.xml';
     const fixtureBasePath = path.resolve(__dirname);
 
-    var couchdb = nock('http://feeds.spotahome.com')
+    nock('http://feeds.spotahome.com')
       .matchHeader('accept', 'application/xml')
       .get('/trovit-ireland.xml')
       .reply(200, fs.readFileSync(path.join(fixtureBasePath, 'trovit-ireland.xml'), 'utf8'));
@@ -26,7 +26,7 @@ test('lib/request', async function (t) {
     const url = 'http://feeds.spotahome.com/trovit-ireland.xml';
     const fixtureBasePath = path.resolve(__dirname);
 
-    var couchdb = nock('http://feeds.spotahome.com')
+    nock('http://feeds.spotahome.com')
       .matchHeader('accept', 'application/xml')
       .get('/trovit-ireland.xml')
       .reply(404, 'Not Found');
