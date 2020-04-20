@@ -59,5 +59,37 @@
   "git.ignoreLimitWarning": true,
   "editor.rulers": [
     120
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "clippy",
+      "iconColour": "grey"
+    },
+    "FIXME": {
+      "icon": "bug",
+      "iconColour": "yellow"
+    },
+    "HACK": {
+      "icon": "flame",
+      "iconColour": "red"
+    },
+    "SMELL": {
+      "icon": "trashcan",
+      "iconColour": "orange"
+    }
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "foreground": "white",
+    "background": "grey",
+    "type": "text"
+  },
+  "todo-tree.filtering.excludeGlobs": [
+    "/node_modules"
+  ],
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME",
+    "HACK",
+    "POOP"
   ]
 }
